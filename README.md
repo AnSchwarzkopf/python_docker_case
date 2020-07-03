@@ -26,3 +26,7 @@ different Random Forest parameterizations and pick the best model afterwards.
 Part 3: Python, flask
 Use flask to setup a small REST API. When calling the API for example with localhost:3000/13
 the prediction for the dataset at index 13 of the test split should be returned.
+
+Part 4: docker-compose (Optional)
+Create a docker-compose file that allows to start the Docker image with the simple command:
+docker-compose up

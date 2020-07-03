@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+    dockerpythoncase:
+        image: dockerpythoncase:1.0
+        build: ./main
+        container_name: dockerpythoncase
+        ports: 
+            - 3000:3000
