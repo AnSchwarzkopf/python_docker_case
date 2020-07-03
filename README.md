@@ -22,3 +22,7 @@ train and the other ones the test slice.
 5. Calculate and print the accuracy of the trained model
 6. Setup a parameter optimization loop to tune the Random Forest model by testing
 different Random Forest parameterizations and pick the best model afterwards.
+
+Part 3: Python, flask
+Use flask to setup a small REST API. When calling the API for example with localhost:3000/13
+the prediction for the dataset at index 13 of the test split should be returned.

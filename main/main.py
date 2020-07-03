@@ -4,6 +4,7 @@ from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
+from flask import Flask, jsonify
 
 def fetchDatasets():
     '''Fetch dataset from openml provided from code snipped and returns data and target'''
@@ -37,7 +38,7 @@ def calculateAccuracy(model, X_train, y_test):
     logging.info("Calculating accuracy of trained model...")
     logging.info("Accuracy: %s" % model.score(X_test, y_test))
 
-def parameterOptimization(model):
+def parameterOptimization(model, X_train, y_train):
     '''Run parameter optimization on model using GridSearchCV and print best estimator'''
 
     logging.info("Running parameter optimization on model...")
@@ -64,6 +65,21 @@ if __name__ == "__main__":
 
     calculateAccuracy(rfmodel, X_test, y_test)
 
-    # parameterOptimization(rfmodel)
+    # parameterOptimization(rfmodel, X_train, y_train)
+    logging.info("Starting Flask REST API...")
+    app = Flask(__name__)
+
+    @app.route("/", methods = ["GET"])
+    def getIndex(): 
+        return jsonify({'message': 'server is running'})
+
+    @app.route("/<int:index>", methods = ["GET"])
+    def getPredictedAtIndex(index): 
+        if index <= len(predicted) - 1:
+            return jsonify({'predicted_number': predicted[index]})
+        else:
+            return jsonify({'predicted_number': "index too high"})
+
+    app.run(host = '0.0.0.0', port = 3000, debug = True, use_reloader=False)
 
     logging.info("Done")
