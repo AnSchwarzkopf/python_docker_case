@@ -22,7 +22,8 @@ def trainModel(X_train, y_train):
     '''Train model on training split and return trained model'''
 
     logging.info("Training on train split...")
-    return RandomForestClassifier(n_jobs=-1).fit(X_train, y_train)
+    return RandomForestClassifier(max_depth=20, max_features=3, min_samples_leaf=3,
+                           min_samples_split=8, n_estimators=300, n_jobs=-1).fit(X_train, y_train)
 
 def predictTestsplit(model, X_train):
     '''Predict model on test split and return predicted Values'''
@@ -61,8 +62,8 @@ if __name__ == "__main__":
     rfmodel = trainModel(X_train, y_train)
     predicted = predictTestsplit(rfmodel, X_train)
 
-    calculateAccuracy(rfmodel, X_train, y_test)
+    calculateAccuracy(rfmodel, X_test, y_test)
 
-    parameterOptimization(rfmodel)
+    # parameterOptimization(rfmodel)
 
     logging.info("Done")
