@@ -16,8 +16,14 @@ def createTrainAndTestSplit(X, y, train_samples, test_size):
     return train_test_split(X, y, train_size=train_samples, test_size=test_size)
 
 def trainModel(X_train, y_train):
+    '''Train model on training split and return trained model'''
     logging.info("Training on train split...")
     return RandomForestClassifier(n_jobs=-1).fit(X_train, y_train)
+
+def predictTestsplit(model, X_train):
+    '''Predict model on test split and return predicted Values'''
+    logging.info("Predict on test split...")
+    return model.predict[X_train]
 
 if __name__ == "__main__":
     logging.basicConfig(format='%(asctime)s %(message)s',level=logging.INFO)
@@ -27,5 +33,6 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = createTrainAndTestSplit(X, y, train_samples=60000, test_size=10000)
 
     rfmodel = trainModel(X_train, y_train)
+    predicted = predicted(rfmodel, X_train)
 
     logging.info("Done")
